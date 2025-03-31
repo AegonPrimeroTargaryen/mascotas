@@ -1,23 +1,23 @@
 package cl.ms.mascotas.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MascotaDtoRp extends ResponseDto{
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class EventoDtoRp extends ResponseDto {
     @JsonProperty("data")
-    private List<MascotaDto> data;
+    private List<EventoDto> eventos;
 
-    public MascotaDtoRp(String codigo, String detalle,List<MascotaDto> data) {
+    public EventoDtoRp(String codigo, String detalle, List<EventoDto> eventos) {
         super(codigo, detalle);
-        this.data = data;
+        this.eventos = eventos;
     }
 }
