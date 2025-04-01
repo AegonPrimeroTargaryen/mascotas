@@ -21,17 +21,17 @@ public class MascotaController {
         this.mascotaService = mascotaService;
     }
 
-    @GetMapping
+    @GetMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<MascotaDtoRp> getMascotas() {
         return mascotaService.getMascotas();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<MascotaDtoRp> getMascotaById(@Min(1) @PathVariable int id) {
         return mascotaService.getMascotaById(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<MascotaDtoRp> agregarMascota(@Valid @RequestBody MascotaDtoRq rq) {
         return mascotaService.agregarMascota(rq);
     }
