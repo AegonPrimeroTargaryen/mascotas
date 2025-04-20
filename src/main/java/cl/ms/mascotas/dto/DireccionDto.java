@@ -1,5 +1,6 @@
 package cl.ms.mascotas.dto;
 
+import cl.ms.mascotas.entity.DireccionEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,4 +32,19 @@ public class DireccionDto {
     @Size(min = 5,message = "Region demaciado corto")
     @JsonProperty("region")
     private String region;
+
+    public DireccionEntity toEntity() {
+        DireccionEntity direccionEntity = new DireccionEntity();
+        direccionEntity.setDireccion(direccion);
+        direccionEntity.setComuna(comuna);
+        direccionEntity.setRegion(region);
+        return direccionEntity;
+    }
+
+    public DireccionEntity updateDireccionEntity(DireccionEntity direccionEntity) {
+        direccionEntity.setDireccion(direccion);
+        direccionEntity.setComuna(comuna);
+        direccionEntity.setRegion(region);
+        return direccionEntity;
+    }
 }

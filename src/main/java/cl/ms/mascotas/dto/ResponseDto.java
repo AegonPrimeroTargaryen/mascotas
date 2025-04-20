@@ -12,6 +12,6 @@ public class ResponseDto {
     @JsonProperty("codigo")
     private String codigo;
 
-    @JsonProperty("detalle")
-    private String detalle;
+    @JsonProperty("status")
+    private String status;
 }

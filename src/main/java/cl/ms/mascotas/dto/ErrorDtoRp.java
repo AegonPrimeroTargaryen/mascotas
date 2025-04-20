@@ -15,12 +15,12 @@ public class ErrorDtoRp extends ResponseDto{
     @JsonProperty("error")
     private Object error;
 
-    public ErrorDtoRp(String codigo, String detalle, Object errors) {
-        super(codigo, detalle);
+    public ErrorDtoRp(String codigo, String status, Object errors) {
+        super(codigo, status);
         this.error = errors;
     }
 
-    public ErrorDtoRp(String codigo, String detalle) {
-        super(codigo, detalle);
+    public ErrorDtoRp(String codigo, String status) {
+        super(codigo, status);
     }
 }
