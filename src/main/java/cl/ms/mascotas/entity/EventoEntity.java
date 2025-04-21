@@ -1,7 +1,6 @@
 package cl.ms.mascotas.entity;
 
 import cl.ms.mascotas.dto.EventoDto;
-import cl.ms.mascotas.dto.EventoDtoRq;
 import cl.ms.mascotas.dto.MascotaDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -54,13 +53,4 @@ public class EventoEntity {
         return new EventoDto(id==null?0:id.intValue(),nombre,tipoEvento,fecha,detalle
                 ,cantidadParticipantes,mascotasDto,direccion.toDto());
     }
-//
-//    public EventoEntity updateEntity(EventoDtoRq rq) {
-//        this.nombre = rq.getNombre();
-//        this.tipoEvento = rq.getTipoEvento();
-//        this.fecha = rq.getFecha();
-//        this.detalle = rq.getDetalle();
-//        this.cantidadParticipantes = rq.getCantParticipantes();
-//        return this;
-//    }
 }

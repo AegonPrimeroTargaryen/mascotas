@@ -2,6 +2,7 @@ package cl.ms.mascotas.exception;
 
 import cl.ms.mascotas.dto.ErrorDtoRp;
 import cl.ms.mascotas.dto.ParamErrorDto;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -20,9 +21,11 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
+    private static final String DETALLE = "detalle";
+
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class,
             MethodArgumentNotValidException.class,NoResourceFoundException.class,HandlerMethodValidationException.class
-            ,EventoNotFoundException.class,MascotaNotFoundException.class})
+            ,EventoNotFoundException.class,MascotaNotFoundException.class, DataIntegrityViolationException.class})
     protected ResponseEntity<ErrorDtoRp> handlerError(Exception e) {
         if (e instanceof MethodArgumentTypeMismatchException) return handleMethodArgumentTypeMismatchException();
         if (e instanceof HttpMessageNotReadableException || e instanceof HandlerMethodValidationException)
@@ -31,6 +34,7 @@ public class RestExceptionHandler {
         if (e instanceof NoResourceFoundException) return ResponseEntity.notFound().build();
         if (e instanceof EventoNotFoundException exception) return eventoNotFoundException(exception);
         if (e instanceof MascotaNotFoundException exception) return mascotaNotFoundException(exception);
+        if (e instanceof DataIntegrityViolationException) return mascotaDeletRestringido();
         else
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ErrorDtoRp("01","NOK"));
@@ -57,7 +61,7 @@ public class RestExceptionHandler {
 
     private ResponseEntity<ErrorDtoRp> eventoNotFoundException(EventoNotFoundException exception) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("detalle", exception.getMessage());
+        errors.put(DETALLE, exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorDtoRp(exception.getCodigo(), exception.getStatus(), errors));
@@ -65,9 +69,17 @@ public class RestExceptionHandler {
 
     private ResponseEntity<ErrorDtoRp> mascotaNotFoundException(MascotaNotFoundException exception) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("detalle", exception.getMessage());
+        errors.put(DETALLE, exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorDtoRp(exception.getCodigo(), exception.getStatus(), errors));
+    }
+
+    private ResponseEntity<ErrorDtoRp> mascotaDeletRestringido() {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(DETALLE, "Registro secundario encontrado");
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorDtoRp("01", "NOK", errors));
     }
 }

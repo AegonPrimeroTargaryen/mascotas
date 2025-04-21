@@ -1,10 +1,8 @@
 package cl.ms.mascotas.service;
 
 import cl.ms.mascotas.dto.EventoDto;
-import cl.ms.mascotas.dto.EventoDtoRp;
 import cl.ms.mascotas.dto.EventoDtoRq;
 import cl.ms.mascotas.dto.ParticipantesDtoRq;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
