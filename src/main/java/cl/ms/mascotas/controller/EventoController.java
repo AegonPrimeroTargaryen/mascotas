@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,35 +26,59 @@ public class EventoController {
     }
 
     @GetMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<EventoDtoRp> obtenerEventos() {
+    public EntityModel<EventoDtoRp> obtenerEventos() {
         log.info("Controller - obtenerEventos()");
-        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.obtenerEventos()));
+//        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.obtenerEventos()));
+        return EntityModel.of(
+                new EventoDtoRp("00","OK",eventoService.obtenerEventos()),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).obtenerEventos()).withSelfRel()
+        );
     }
 
     @GetMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<EventoDtoRp> obtenerEventoById(@Min(1) @PathVariable int id) {
+    public EntityModel<EventoDtoRp> obtenerEventoById(@Min(1) @PathVariable int id) {
         log.info("Controller - obtenerEventoById()");
-        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.obtenerEventoById(id)));
+//        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.obtenerEventoById(id)));
+        return EntityModel.of(
+                new EventoDtoRp("00","OK",eventoService.obtenerEventoById(id)),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).obtenerEventoById(id)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).obtenerEventos()).withRel("all-eventos")
+        );
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<EventoDtoRp> agregarEvento(@Valid @RequestBody EventoDtoRq rq) {
+    public EntityModel<EventoDtoRp> agregarEvento(@Valid @RequestBody EventoDtoRq rq) {
         log.info("Controller - agregarEvento()");
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(new EventoDtoRp("00","OK",eventoService.agregarEvento(rq)));
+//        return ResponseEntity
+//                .status(HttpStatus.CREATED)
+//                .body(new EventoDtoRp("00","OK",eventoService.agregarEvento(rq)));
+        return EntityModel.of(
+                new EventoDtoRp("00","OK",eventoService.agregarEvento(rq)),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).agregarEvento(rq)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).obtenerEventos()).withRel("all-eventos")
+        );
     }
 
     @PostMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<EventoDtoRp> agregarParticipante(@Min(1) @PathVariable int id, @Valid @RequestBody ParticipantesDtoRq rq) {
+    public EntityModel<EventoDtoRp> agregarParticipante(@Min(1) @PathVariable int id, @Valid @RequestBody ParticipantesDtoRq rq) {
         log.info("Controller - agregarParticipante()");
-        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.agregarParticipante(id, rq)));
+//        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.agregarParticipante(id, rq)));
+        return EntityModel.of(
+                new EventoDtoRp("00","OK",eventoService.agregarParticipante(id,rq)),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).agregarParticipante(id,rq)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).obtenerEventos()).withRel("all-eventos")
+        );
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<EventoDtoRp> actualizarEvento(@Min(1) @PathVariable int id, @Valid @RequestBody EventoDtoRq rq) {
+    public EntityModel<EventoDtoRp> actualizarEvento(@Min(1) @PathVariable int id, @Valid @RequestBody EventoDtoRq rq) {
         log.info("Controller - actualizarEvento()");
-        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.updateEvento(id,rq)));
+//        return ResponseEntity.ok(new EventoDtoRp("00","OK",eventoService.updateEvento(id,rq)));
+        return EntityModel.of(
+                new EventoDtoRp("00","OK",eventoService.updateEvento(id,rq)),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).actualizarEvento(id,rq)).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).obtenerEventos()).withRel("all-eventos")
+        );
     }
 
     @DeleteMapping(value = "/{id}", consumes = "application/json", produces = "application/json")

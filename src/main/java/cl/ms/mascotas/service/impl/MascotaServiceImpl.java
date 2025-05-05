@@ -1,7 +1,6 @@
 package cl.ms.mascotas.service.impl;
 
 import cl.ms.mascotas.dto.MascotaDto;
-import cl.ms.mascotas.dto.MascotaDtoRp;
 import cl.ms.mascotas.dto.MascotaDtoRq;
 import cl.ms.mascotas.entity.MascotaEntity;
 import cl.ms.mascotas.exception.MascotaNotFoundException;
@@ -10,7 +9,6 @@ import cl.ms.mascotas.service.MascotaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -52,6 +52,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 		</dependency>
@@ -76,11 +81,9 @@
 		<!--  DEPENDENCIAS PARA DB ORACLE CLOUD  -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
-			<artifactId>ojdbc11</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.database.security</groupId>
-			<artifactId>oraclepki</artifactId>
+			<artifactId>ojdbc11-production</artifactId>
+			<version>23.7.0.25.01</version>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.database.security</groupId>
@@ -120,6 +123,25 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
