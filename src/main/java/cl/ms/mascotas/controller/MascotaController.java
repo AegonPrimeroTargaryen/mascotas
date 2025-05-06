@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("${api.mascota.base.url}")
+@RequestMapping("/mascotas-api/v1")
 public class MascotaController {
 
     private final MascotaService mascotaService;

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("${api.evento.base.url}")
+@RequestMapping("/evento-api/v1")
 public class EventoController {
     private final EventoService eventoService;
 
