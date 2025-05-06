@@ -1,0 +1,15 @@
+version: '1'
+services:
+  microservicio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ORACLE_PATH_DATASOURCE=jdbc:oracle:thin:@dbaplicada_high?TNS_ADMIN=/app/wallet
+      - DB_MASCOTA_USER=MASCOTAS
+      - DB_MASCOTA_PASS=MasMsSum.US3r_BD
+      - MS_USER=admin
+      - MS_PASS=admin123
+#    restart: always
