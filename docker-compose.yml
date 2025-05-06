@@ -12,4 +12,4 @@ services:
       - DB_MASCOTA_PASS=MasMsSum.US3r_BD
       - MS_USER=admin
       - MS_PASS=admin123
-#    restart: always
+    restart: always
