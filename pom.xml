@@ -96,6 +96,24 @@
 			<version>${oracle-clod.osdt.version}</version>
 		</dependency>
 		<!--	FIN	-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+			<!--  Para pruebas  -->
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.h2database</groupId>-->
+<!--			<artifactId>h2</artifactId>-->
+<!--			<scope>runtime</scope>-->
+<!--			&lt;!&ndash;  Para ejecución en desarrollo  &ndash;&gt;-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>

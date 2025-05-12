@@ -2,6 +2,7 @@ package cl.ms.mascotas.service.impl;
 
 import cl.ms.mascotas.dto.MascotaDto;
 import cl.ms.mascotas.entity.MascotaEntity;
+import cl.ms.mascotas.exception.MascotaNotFoundException;
 import cl.ms.mascotas.repository.MascotaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -46,5 +47,12 @@ public class MascotaServiceImplTest {
         List<MascotaDto> actual = mascotaServiceImpl.getMascotaById(1);
 
         Assertions.assertEquals(mascotas.toDto(),actual.getFirst());
+    }
+
+    @Test
+    void getMascotaNotFound() {
+        Mockito.when(mascotaRepositoryMock.findById(1L)).thenReturn(Optional.empty());
+
+        Assertions.assertEquals(0,mascotaServiceImpl.getMascotaById(1).size());
     }
 }
